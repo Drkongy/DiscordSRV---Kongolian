@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -42,7 +43,11 @@ namespace DiscordSRV___Kongolian
 
         private void Main_Load(object sender, EventArgs e)
         {
-
+            DataLoad();
+            Initialize = true;
+            client = new DiscordRpcClient(AppID);
+            client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+            client.Initialize();
         }
 
         // Windows bar code
@@ -117,34 +122,14 @@ namespace DiscordSRV___Kongolian
         // for sub text
         private void TbsubText_TextChanged(object sender, EventArgs e)
         {
-            if (TBAppID.Text == "")
-            {
-                LblError.Text = "Please Enter Valid Text";
+            subtext = TbsubText.Text;
 
-            }
-            else
-            {
-                LblError.Text = "";
-
-                subtext = TbsubText.Text;
-
-            }
         }
 
         private void TBDetails_TextChanged(object sender, EventArgs e)
         {
-            if (TBDetails.Text == "")
-            {
-                LblError.Text = "Please Enter Valid Text";
+            details = TBDetails.Text;
 
-            }
-            else
-            {
-                LblError.Text = "";
-
-                details = TBDetails.Text;
-
-            }
         }
 
         private void TbBID_KeyPress(object sender, KeyPressEventArgs e)
@@ -154,67 +139,32 @@ namespace DiscordSRV___Kongolian
 
         private void TbBID_TextChanged(object sender, EventArgs e)
         {
-            if (TbBID.Text == "")
-            {
-                LblError.Text = "Please Enter Valid Image ID";
+            BigImageID = TbBID.Text;
 
-            }
-            else
-            {
-                LblError.Text = "";
-
-                BigImageID = TbBID.Text;
-
-            }
         }
 
         private void TbsID_TextChanged(object sender, EventArgs e)
         {
-            if (TbsID.Text == "")
-            {
-                LblError.Text = "Please Enter Valid Image ID";
+            SmallImageID = TbsID.Text;
 
-            }
-            else
-            {
-                LblError.Text = "";
 
-                SmallImageID = TbsID.Text;
 
-            }
+
         }
 
 
         private void TBBtxt_TextChanged(object sender, EventArgs e)
         {
-            if (TBBtxt.Text == "")
-            {
-                LblError.Text = "Please Enter Valid Image Text";
+            BigImageTxt = TbsID.Text;
 
-            }
-            else
-            {
-                LblError.Text = "";
-
-                BigImageTxt = TbsID.Text;
-
-            }
         }
 
         private void TBStxt_TextChanged(object sender, EventArgs e)
         {
-            if (TBStxt.Text == "")
-            {
-                LblError.Text = "Please Enter Valid Image Text";
 
-            }
-            else
-            {
-                LblError.Text = "";
+            SmallImageTxt = TBStxt.Text;
 
-                SmallImageTxt = TBStxt.Text;
 
-            }
         }
 
         private void CBTimeStamps_CheckedChanged(object sender, EventArgs e)
@@ -287,9 +237,98 @@ namespace DiscordSRV___Kongolian
                 });
             }
 
+            DataSave(); // saves the data
+
+        }
+
+
+        private void DataLoad()
+        {
+            try
+            {
+                var first = new System.IO.StreamReader("C:\\ProgramData\\KongolianDII\\first.ID");
+                string FirstTime = first.ReadLine();
+                first.Close();
+
+
+                if(FirstTime == "True")
+                {
+                    var first2 = new System.IO.StreamWriter("C:\\ProgramData\\KongolianDII\\first.ID");
+                    first2.Write("False");
+                    first2.Close();
+                }
+
+                var d = new System.IO.StreamReader("C:\\ProgramData\\KongolianDII\\Data.ID");
+                AppID = d.ReadLine();
+                details = d.ReadLine();
+                subtext = d.ReadLine();
+                BigImageID = d.ReadLine();
+                SmallImageID = d.ReadLine();
+                BigImageTxt = d.ReadLine();
+                SmallImageTxt = d.ReadLine();
+                timeStamps = bool.Parse(d.ReadLine());
+                d.Close();
+
+                TBAppID.Text = AppID;
+                TBDetails.Text = details;
+                TbsubText.Text = subtext;
+                TbBID.Text = BigImageID;
+                TbsID.Text = SmallImageID;
+                TBBtxt.Text = BigImageTxt;
+                TBStxt.Text = SmallImageTxt;
+                CBTimeStamps.Checked = timeStamps;
+
+
+
 
 
             }
+            catch (DirectoryNotFoundException)
+            {
+                DirectoryInfo di = new DirectoryInfo("C:\\ProgramData\\KongolianDII\\");
+                di.Create();
+
+
+
+                var first = new System.IO.StreamWriter("C:\\ProgramData\\KongolianDII\\first.ID");
+                first.Write("True");
+                first.Close();
+
+
+                var Data = new System.IO.StreamWriter("C:\\ProgramData\\KongolianDII\\Data.ID");
+                Data.WriteLine("947177821787271210"); // AppID
+                Data.WriteLine("Cool discord integration app made by Drkongy"); // details
+                Data.WriteLine("Testing An Amazing App"); // subtext
+                Data.WriteLine("monkiclickercursordarkhd_1"); // bigimageID
+                Data.WriteLine("monkiclickercursordarkhd_1"); // SmallImageID
+                Data.WriteLine("Big Image Text"); // bigImageText
+                Data.WriteLine("Small Image Text"); // SmallImageText
+                Data.WriteLine("True"); // TimeStamps
+                Data.Close();
+            }
+
+   
+
+            AppID = "947177821787271210";
+
+
+        }
+
+
+
+        private void DataSave()
+        {
+            var Data = new System.IO.StreamWriter("C:\\ProgramData\\KongolianDII\\Data.ID");
+            Data.WriteLine(AppID); // AppID
+            Data.WriteLine(details); // details
+            Data.WriteLine(subtext); // subtext
+            Data.WriteLine(BigImageID); // bigimageID
+            Data.WriteLine(SmallImageID); // SmallImageID
+            Data.WriteLine(BigImageTxt); // bigImageText
+            Data.WriteLine(SmallImageTxt); // SmallImageText
+            Data.WriteLine(timeStamps); // TimeStamps
+            Data.Close();
+        }
 
 
     }
