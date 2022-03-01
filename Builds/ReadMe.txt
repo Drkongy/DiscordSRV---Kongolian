@@ -9,3 +9,6 @@ The Installation wizard is for people who are going to use the software a lot mo
 
 
 Thanks for downloading <3
+
+
+ps, I will make a tutorial on how to use these program.
