@@ -52,14 +52,17 @@
             this.TBStxt = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.TBBtxt = new System.Windows.Forms.TextBox();
+            this.btnHelp = new System.Windows.Forms.PictureBox();
             this.WindowBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnHelp)).BeginInit();
             this.SuspendLayout();
             // 
             // WindowBar
             // 
             this.WindowBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(48)))));
+            this.WindowBar.Controls.Add(this.btnHelp);
             this.WindowBar.Controls.Add(this.label1);
             this.WindowBar.Controls.Add(this.btnExit);
             this.WindowBar.Location = new System.Drawing.Point(0, 0);
@@ -309,6 +312,18 @@
             this.TBBtxt.Text = "Big Image Text";
             this.TBBtxt.TextChanged += new System.EventHandler(this.TBBtxt_TextChanged);
             // 
+            // btnHelp
+            // 
+            this.btnHelp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnHelp.BackgroundImage")));
+            this.btnHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnHelp.InitialImage = ((System.Drawing.Image)(resources.GetObject("btnHelp.InitialImage")));
+            this.btnHelp.Location = new System.Drawing.Point(680, 1);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(33, 33);
+            this.btnHelp.TabIndex = 3;
+            this.btnHelp.TabStop = false;
+            this.btnHelp.Visible = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 21F);
@@ -348,6 +363,7 @@
             this.WindowBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnHelp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,6 +394,7 @@
         private System.Windows.Forms.TextBox TBStxt;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox TBBtxt;
+        private System.Windows.Forms.PictureBox btnHelp;
     }
 }
 
